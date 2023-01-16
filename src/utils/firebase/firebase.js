@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getAuth,signInWithPopup,GoogleAuthProvider} from 'firebase/auth';
+import {getAuth,signInWithPopup,GoogleAuthProvider,createUserWithEmailAndPassword} from 'firebase/auth';
 import {getFirestore,doc,getDoc,setDoc } from 'firebase/firestore'
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -28,7 +28,7 @@ export const signInWithGooglePopup=()=>signInWithPopup(auth,provider);
 const db=getFirestore();
 // we need to create a user with the information passed through 
 //authentication process
-export const createUserDocumentFromAuth=async (userAuth)=>{  
+export const createUserDocumentFromAuth=async (userAuth,additionalInfo)=>{  
     //as a first properity for "doc" function,
     //we need to enter the database we would like to get connected
     // as a second parametr("path") ,we need to write the name of colection we want to get its data
@@ -47,12 +47,17 @@ if(!userSnapshot.exists()){
     const userData=await setDoc(userDocRef,{
       email:userAuth.email,
       name:userAuth.displayName,
-      createdAt:Date.now()
+      createdAt:Date.now(),
+      ...additionalInfo
     });
   } catch (error) {
     console.log("Error creating user:",error.message)
   }
 }
-console.log(userDocRef)
+
  return userDocRef    
+}
+export const createAuthUserWithEmailAndPassword=async (email,password)=>{
+if(!email || !password)return
+return await createUserWithEmailAndPassword(auth,email,password)
 }

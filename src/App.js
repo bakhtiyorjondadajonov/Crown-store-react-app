@@ -5,7 +5,7 @@ import CategoryItem from './components/category-item/categoryItem';
 import Directory from './components/directory/directory';
 import Home from './routes/Home';
 import Navigation from "./routes/Navigation";
-import SignIn from "./routes/SignIn";
+import Auth from "./routes/Auth";
 const Shop=()=>{
   return <h1 >I am Shop page!</h1>
 }
@@ -22,7 +22,7 @@ function App() {
 <Route path="/" element={<Navigation/>}>
   <Route index element={<Home/>}/>
   <Route path="/shop" element={<Shop/>}/>
-  <Route path="sign-in" element={<SignIn/>}/>
+  <Route path="auth" element={<Auth/>}/>
   <Route path="/contact" element={<Contact/>}/>
   </Route>
    </Routes>

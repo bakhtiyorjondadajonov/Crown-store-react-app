@@ -6,9 +6,8 @@ import Directory from './components/directory/directory';
 import Home from './routes/Home';
 import Navigation from "./routes/Navigation";
 import Auth from "./routes/Auth";
-const Shop=()=>{
-  return <h1 >I am Shop page!</h1>
-}
+import Shop from "./routes/shop/Shop";
+
 const Contact=()=>{
   return <h1 >I am Contact page</h1>
 }

@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {signInWithEmailAndPassword,getAuth,signInWithPopup,GoogleAuthProvider,createUserWithEmailAndPassword,signOut,onAuthStateChanged} from 'firebase/auth';
-import {getFirestore,doc,getDoc,setDoc } from 'firebase/firestore'
+import {getFirestore,doc,getDoc,setDoc,collection,WriteBatch, writeBatch } from 'firebase/firestore'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCdyv6cGeF5oEtU7qanBW_0harN266ZIEI",
@@ -72,4 +72,16 @@ export const signOutUser=async()=>{
 export const AuthStateChangeListener=async (observer)=>{
   return onAuthStateChanged(auth,observer)
 
+}
+
+export const AddCollectionAndDocuments=async (collectionKey,objectToAdd)=>{
+ const collectionRef=collection(db,collectionKey);
+
+ const batch=writeBatch(db)
+ objectToAdd.forEach(object=>{
+const docRef=doc(collectionRef,object.title.toLowerCase())
+ batch.set(docRef,object)
+})
+console.log("done")
+ await batch.commit()
 }

@@ -11,7 +11,7 @@ const UserContextProvider=({children})=>{
     useEffect(()=>{
         
        const unsubscribe=AuthStateChangeListener((user)=>{
-            console.log(user)
+           
              setCurrentUser(user)
         })
  

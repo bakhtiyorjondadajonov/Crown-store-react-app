@@ -7,6 +7,7 @@ import Home from './routes/Home';
 import Navigation from "./routes/Navigation";
 import Auth from "./routes/Auth";
 import Shop from "./routes/shop/Shop";
+import Checkout from "./routes/checkout/Checkout";
 
 const Contact=()=>{
   return <h1 >I am Contact page</h1>
@@ -20,9 +21,10 @@ function App() {
    <Routes> 
 <Route path="/" element={<Navigation/>}>
   <Route index element={<Home/>}/>
-  <Route path="/shop" element={<Shop/>}/>
+  <Route path="shop" element={<Shop/>}/>
   <Route path="auth" element={<Auth/>}/>
-  <Route path="/contact" element={<Contact/>}/>
+  <Route path="contact" element={<Contact/>}/>
+  <Route path="checkout" element={<Checkout/>}/>
   </Route>
    </Routes>
   

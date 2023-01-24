@@ -1,7 +1,7 @@
 import {Routes,Route,Outlet} from "react-router-dom"
 import './App.css';
 import "./category.styles.scss"
-import CategoryItem from './components/category-item/categoryItem';
+import CategoryItem from './components/category-item/directoryItem';
 import Directory from './components/directory/directory';
 import Home from './routes/Home';
 import Navigation from "./routes/Navigation";
@@ -21,7 +21,7 @@ function App() {
    <Routes> 
 <Route path="/" element={<Navigation/>}>
   <Route index element={<Home/>}/>
-  <Route path="shop" element={<Shop/>}/>
+  <Route path="shop/*" element={<Shop/>}/>
   <Route path="auth" element={<Auth/>}/>
   <Route path="contact" element={<Contact/>}/>
   <Route path="checkout" element={<Checkout/>}/>

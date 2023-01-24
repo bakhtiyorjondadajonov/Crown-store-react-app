@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {signInWithEmailAndPassword,getAuth,signInWithPopup,GoogleAuthProvider,createUserWithEmailAndPassword,signOut,onAuthStateChanged} from 'firebase/auth';
-import {getFirestore,doc,getDoc,setDoc,collection,WriteBatch, writeBatch } from 'firebase/firestore'
+import {getFirestore,doc,getDoc,setDoc,collection, writeBatch,query, getDocs} from 'firebase/firestore'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCdyv6cGeF5oEtU7qanBW_0harN266ZIEI",
@@ -73,15 +73,51 @@ export const AuthStateChangeListener=async (observer)=>{
   return onAuthStateChanged(auth,observer)
 
 }
+//  This function is only for reference.I used it to write all data t0 the database at once
+export const AddCollectionAndDocuments=async(collectionKey,objectsToAdd)=>{
+try {
+  // create a collection reference first in order to write document to that collection
 
-export const AddCollectionAndDocuments=async (collectionKey,objectToAdd)=>{
- const collectionRef=collection(db,collectionKey);
-
- const batch=writeBatch(db)
- objectToAdd.forEach(object=>{
-const docRef=doc(collectionRef,object.title.toLowerCase())
- batch.set(docRef,object)
-})
+  const collectionRef=collection(db,collectionKey)
+const batch=writeBatch(db)
+objectsToAdd.forEach((object=>{
+  // create a document reference to write (or batch) data
+ const docReference=doc(collectionRef,object.title.toLowerCase())
+ console.log(docReference)
+batch.set(docReference,object)
+}))
+await batch.commit()
 console.log("done")
- await batch.commit()
+} catch (error) {
+  console.log("error",error)
 }
+
+}
+
+// ------ READING DATA FROM DATABASE -------//
+export const getCollectionAndDocuments=async ()=>{
+
+  // we need to create collection reference to get data from the necessary collection.
+ 
+  const collectionReference=collection(db,"categories");
+const q=query(collectionReference)
+const querySnapshot=await getDocs(q);
+const categoryMap=querySnapshot.docs.reduce((sum,docSnapShot)=>{
+const {title,items}=docSnapShot.data()
+sum[title.toLowerCase()]=items
+return sum
+
+},{})
+return categoryMap
+}
+// the format of data we are trying to get
+/*
+{
+  hats:[],
+  sneakers:[],
+  mens:[],
+  jackets:[]
+}
+hashtables 
+*/
+ 

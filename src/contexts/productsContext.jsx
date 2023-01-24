@@ -1,20 +1,19 @@
-import SHOP_DATA from "../routes/shop/shopData.js";
+
 import {createContext,useState,useEffect} from "react"
-import { AddCollectionAndDocuments } from "../utils/firebase/firebase.js";
+import { getCollectionAndDocuments } from "../utils/firebase/firebase";
+
 export const ProductsContext=createContext({
-    products:[]
+    products:{}
 })
 const ProductProvider=({children})=>{
-const [products,setProducts]=useState([]);
+const [products,setProducts]=useState({});
 useEffect(()=>{
+    (async function(){
+const categoryMap=await getCollectionAndDocuments();
 
-const myfn=async()=>{
-   await AddCollectionAndDocuments("categories",SHOP_DATA)
-}
-
-myfn()
-
-
+setProducts(categoryMap)
+    })()
+   
 },[])
 const value={products}
     return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>

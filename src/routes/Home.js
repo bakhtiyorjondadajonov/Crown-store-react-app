@@ -2,7 +2,7 @@ import React from 'react'
 import Directory from '../components/directory/directory'
 import {Outlet} from "react-router-dom"
 function Home() {
-    const categories=[
+    const directories=[
         {
           id:1,
           imgUrl:"https://i.ibb.co/cvpntL1/hats.png",
@@ -32,7 +32,7 @@ function Home() {
   return (
     <>
     <Outlet/>
-      <Directory categories={categories}/>
+      <Directory directories={directories}/>
     </>
   )
 }

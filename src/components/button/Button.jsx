@@ -9,7 +9,7 @@ const getButton=(className)=>{
 function Button({className="",children,...otherProps}) {
 const CustomButton=getButton(className)
   return (
-    <CustomButton 
+    <CustomButton className={`${className}`} 
     {...otherProps}
     >
       {children}

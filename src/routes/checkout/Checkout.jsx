@@ -17,7 +17,7 @@ function Checkout() {
      {
         cartItems.map(cartItem=>{
             
-            return <CheckOutItem cartItem={cartItem}/>
+            return <CheckOutItem key={cartItem.id} cartItem={cartItem}/>
         })
      }
      <span className="total">Total: ${cartTotal}</span>
